@@ -5,6 +5,7 @@ import git from 'isomorphic-git'
 import { groupBy, uniqBy } from 'lodash'
 import { resolve } from 'path'
 
+const REMOTE = 'origin'
 const GIT_ROOT = resolve(__dirname, '../')
 const EMAILS = new Set(['justinemmanuelmercado@gmail.com', 'ej@ejmercado.com'])
 const START_DATE = new Date('May 25, 2020 00:00:00 GMT+7')
@@ -15,7 +16,13 @@ function tsToDate(timestamp: number) {
 }
 
 async function main() {
-  const log = await git.log({ fs, dir: GIT_ROOT })
+  const branches = await git.listBranches({ fs, dir: GIT_ROOT, remote: REMOTE })
+
+  const allCommits = await Promise.all(
+    branches.map((branch) => git.log({ fs, dir: GIT_ROOT, ref: `remotes/${REMOTE}/${branch}` })),
+  )
+
+  const log = allCommits.flat()
 
   // grab unique commits
   const uniqueLog = uniqBy(log, (l) => l.commit.author.timestamp)
