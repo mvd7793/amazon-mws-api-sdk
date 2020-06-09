@@ -30,7 +30,7 @@ async function main() {
     // find log items within invoice date
     .filter((l) => {
       const authorTimestamp = tsToDate(l.commit.author.timestamp)
-      return authorTimestamp >= START_DATE && START_DATE <= END_DATE
+      return authorTimestamp >= START_DATE && authorTimestamp <= END_DATE
     })
 
     // sort by timestamp
