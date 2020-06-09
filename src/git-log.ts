@@ -8,7 +8,7 @@ import { resolve } from 'path'
 const GIT_ROOT = resolve(__dirname, '../')
 const EMAILS = new Set(['justinemmanuelmercado@gmail.com', 'ej@ejmercado.com'])
 const START_DATE = new Date('May 25, 2020 00:00:00 GMT+7')
-const END_DATE = new Date('June 5, 2020 23:59:59 GMT+7')
+const END_DATE = new Date('June 9, 2020 23:59:59 GMT+7')
 
 function tsToDate(timestamp: number) {
   return new Date(timestamp * 1000)
